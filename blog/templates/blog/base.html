@@ -5,26 +5,68 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     </head>
     <body>
-        <div class="page-header">
-            {% if user.is_authenticated %}
-                <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-                <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
-                <p class="top-menu">Hello {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
-            {% else %}
-                <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
-            {% endif %}
-            <h1><a href="/">Django Girls Blog</a></h1>
-        </div>
-        <div class="content container">
-            <div class="row">
-                <div class="col-md-8">
-                {% block content %}
-                {% endblock %}
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Ty brasseur</a>
                 </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="{% url 'post_list' %}">Accueil</a></li>
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" href="#">Brassage<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="">Mes recettes</a></li>
+                                <li><a href="">Le matériel</a></li>
+                                <li><a href="">Le brassage</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" href="#">Outils<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="">Calcul taux d'alcool avec réfracomètre</a></li>
+                                <li><a href="">Calcul taux d'alcool avec densimètre</a></li>
+                                <li class=""></li>
+                                <li><a href="">Liens</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="">Contact</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            {% if user.is_authenticated %}
+                                <a data-toggle="dropdown" href="#">Bienvenue {{ user.username }} <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                        <li><a href="{% url 'post_new' %}">Nouveau post</a></li>
+                                        <li><a href="{% url 'post_draft_list' %}">A publier</a></li>
+                                        <li><a href="">Gérer mon compte</a></li>
+                                        <li><a href="{% url 'logout' %}">Déconnecter</a></li>
+                                </ul>
+                            {% else %}
+                                <a data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-lock"><b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'login' %}">Connexion</a></li>
+                                </ul>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
             </div>
+        </div>
+        <div class="container font_white">
+        {% block content %}
+        {% endblock %}
         </div>
     </body>
 </html>

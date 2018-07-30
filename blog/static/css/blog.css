@@ -4,7 +4,11 @@ h1 a {
 }
 
 body {
-    padding-left: 15px;
+    padding-top: 50px;
+    /*
+    background-image: url("../images/page_background.jpg");
+    background-attachment:fixed;
+     */
 }
 
 .page-header {
