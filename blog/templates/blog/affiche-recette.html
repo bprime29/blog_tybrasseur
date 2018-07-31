@@ -1,0 +1,225 @@
+{% extends 'blog/base.html' %}
+{% block titre %}Recette -{{ recette.titre }} {% endblock %}
+{% block content %}
+
+<link href="https://cdn.rawgit.com/sachinchoolur/lightgallery.js/master/dist/css/lightgallery.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
+<script src="https://cdn.rawgit.com/sachinchoolur/lightgallery.js/master/dist/js/lightgallery.js"></script>
+<script src="https://cdn.rawgit.com/sachinchoolur/lg-pager.js/master/dist/lg-pager.js"></script>
+<script src="https://cdn.rawgit.com/sachinchoolur/lg-autoplay.js/master/dist/lg-autoplay.js"></script>
+<script src="https://cdn.rawgit.com/sachinchoolur/lg-fullscreen.js/master/dist/lg-fullscreen.js"></script>
+<script src="https://cdn.rawgit.com/sachinchoolur/lg-zoom.js/master/dist/lg-zoom.js"></script>
+<script src="https://cdn.rawgit.com/sachinchoolur/lg-hash.js/master/dist/lg-hash.js"></script>
+<script src="https://cdn.rawgit.com/sachinchoolur/lg-share.js/master/dist/lg-share.js"></script>
+
+    <div class="starter-template">
+        <h1> {{ recette.titre }} </h1>
+        <p class="lead"> {{ recette.description }} </p>
+    </div>
+
+    <section class="row">
+       <div class="col-lg-10 col-lg-offset-1">
+            <div class="col-sm-5">
+                <div class="card-bax">
+                    <h4>Information</h4>
+                    <p>Type: {{ recette.type }}</p>
+                    <p>Date: {{ recette.real_date }}</p>
+                </div>
+
+            </div>
+            <div class="col-sm-5">
+                <div id="aniimated-thumbnials" class="zoom">
+                    {% for photo in photos %}
+                        <a class="col-xs-4 col-sm-3 col-md-4 image" href="{{ photo.image.url }}">
+                            <img class="img-responsive" src="{{ photo.thumbnail.url }}">
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+       </div>
+    </section>
+
+    <script type="text/javascript">
+        lightGallery(document.getElementById('aniimated-thumbnials'), {
+            thumbnail:true
+        });
+    </script>
+<!--<div class="col-lg-10 col-lg-offset-1">-->
+    <!--<div class="card-box">-->
+        <!--<div class="row">-->
+            <!--<div class="col-lg-10">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-xs-5 text-center">-->
+                        <!--toto-->
+                    <!--</div>-->
+                    <!--<div class="col-xs-5 col-xs-divider-left">-->
+                        <!--<div id="aniimated-thumbnials" class="zoom">-->
+                    <!--{% for photo in photos %}-->
+                        <!--<a class="col-xs-4 col-sm-3 col-md-4 image" href="{{ photo.image.url }}">-->
+                            <!--<img class="img-responsive" src="{{ photo.thumbnail.url }}">-->
+                        <!--</a>-->
+                    <!--{% endfor %}-->
+                <!--</div>-->
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+    <div class="col-lg-10 col-lg-offset-1">
+        <table class="table table-borderless table-condensed table-hover">
+            <caption>
+                <h4>Information</h4>
+            </caption>
+            <tbody>
+            <tr>
+                <td>Type: {{ recette.type }}</td>
+                <td>Date: {{ recette.real_date }}</td>
+            </tr>
+            <tr>
+                <td>Volume : {{ recette.volume }} L</td>
+                <td>Brasseur: {{ recette.user }}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-lg-10 col-lg-offset-1">
+        <table class="table table-hover table-striped table-condensed">
+            <caption>
+                <h4>Ingrédients</h4>
+            </caption>
+            <thead>
+            <tr>
+                <th>Quantité</th>
+                <th>item</th>
+                <th>Type</th>
+                <th>% / IBU</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for ingredient in ingredients %}
+                <tr>
+                    <td>{{ ingredient.quantite }}</td>
+                    <td>{{ ingredient.nom }}</td>
+                    <td>{{ ingredient.typ }}</td>
+                    <td>{{ ingredient.caracteristique }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-lg-10 col-lg-offset-1">
+        <ul class="nav nav-tabs tabs tabs-top" style="width: 100%">
+            <li class="tab active">
+                <a href="#mashing" data-toggle="tab" target="_blank">
+                    Empâtage
+                </a>
+            </li>
+            <li class="tab">
+                <a href="#boil" data-toggle="tab" target="_blank">
+                    Ebullition
+                </a>
+            </li>
+            <li class="tab">
+                <a href="#ferment" data-toggle="tab" target="_blank">
+                    Fermentation
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="mashing">
+            <div class="col-lg-10 col-lg-offset-1">
+                <ul class="timeline">
+                    {% for etape in etapes_empatage %}
+                    <li>
+                        {% if etape.emp_tag|striptags == 'concassage' %}
+                        <div class="timeline-badge primary"><i class="fa fa-gavel"> </i></div>
+                        {% elif etape.emp_tag|striptags == 'Chauffer' %}
+                        <div class="timeline-badge danger"><i class="fa fa-fire"> </i></div>
+                        {% elif etape.emp_tag|striptags == 'Palier' %}
+                        <div class="timeline-badge success"><i class="fa fa-spoon"> </i></div>
+                        {% elif etape.emp_tag|striptags == 'Filtrer' %}
+                        <div class="timeline-badge info"><i class="fa fa-tint"> </i></div>
+                        {% endif %}
+                        <div class="timeline-panel">
+                            <div class="timeline-body">{{ etape.emp_detail }}</div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="tab-pane" id="boil">
+            <div class="col-lg-10 col-lg-offset-1">
+                <ul class="timeline">
+                    {% for etape in etapes_ebullition %}
+                    <li>
+                        {% if etape.ebu_tag|striptags == 'ajouter' %}
+                        <div class="timeline-badge success"><i class="fa fa-plus"> </i></div>
+                        {% elif etape.ebu_tag|striptags == 'chauffer' %}
+                        <div class="timeline-badge danger"><i class="fa fa-fire"> </i></div>
+                        {% elif etape.ebu_tag|striptags == 'refroidir' %}
+                        <div class="timeline-badge danger"><i class="fa fa-fire-extinguisher"> </i></div>
+                        {% elif etape.ebu_tag|striptags == 'wait' %}
+                        <div class="timeline-badge info"><i class="fa fa-hourglass-start"> </i></div>
+                        {% elif etape.ebu_tag|striptags == 'remove' %}
+                        <div class="timeline-badge success"><i class="fa fa-remove"> </i></div>
+                        {% endif %}
+                        <div class="timeline-panel">
+                            <div class="timeline-body">{{ etape.ebu_detail }}</div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="tab-pane" id="ferment">
+            <div class="col-lg-10 col-lg-offset-1">
+                <table class="table table-borderless table-condensed table-hover">
+                    {% for etape in etapes_fermentation %}
+                    <tr>
+                        <td colspan="2"><em><strong>{{ etape.ferm_tag }} :</strong></em> {{ etape.ferm_detail }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-10 col-lg-offset-1">
+        <h3> Commentaires :</h3>
+        <div class="commentaire">
+            <ul>
+                {% for com in commentaires %}
+                    <li>
+                        <span>{{ com.user }} le {{ com.created_at }}</span>
+                        <div>{{ com.message }}</div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if user.is_authenticated %}
+            {% if form_com %}
+                <h4>Ajouter un commentaire</h4>
+                <form action="{% url 'blog:recette' recette.id %}" method="post">
+                {{ form_com }}
+                {% csrf_token %}
+                 <input type="submit" class="btn btn-primary" value="Commenter">
+                </form>
+            {% else %}
+                Vous avez déjà voté !
+            {% endif %}
+        {% else %}
+            <a href="{% url 'login' %}">Connectez-vous pour laisser un commentaire à cette recette de malade !</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

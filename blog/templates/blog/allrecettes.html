@@ -1,0 +1,52 @@
+{% extends 'blog/base.html' %}
+{% block titre %}Liste des recettes{% endblock %}
+{% block content %}
+    <div class="starter-template">
+        <h1> Voici mes recettes </h1>
+    </div>
+    {% if recettes %}
+    <div class="col-lg-10 col-lg-offset-1">
+        <table class="table table-hover search-result">
+            <thead>
+                <tr>
+                    <!--<th>Photo</th>-->
+                    <th>Titre</th>
+                    <th>Méthode</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for result in recettes %}
+                <tr>
+                    <!--<td>
+                        <a href="{% url 'recette' result.id %}">
+                            <img src="{% if result.photo_set.all %}{% for photo in result.photo_set.all %}{% if forloop.counter == 1%}{{ photo.image.url }}{% endif %}{% endfor %}{% else %}{{ STATIC_URL }}images/no-image.png{% endif %}" alt="" />
+                        </a>
+                    </td>-->
+                    <td><a href="{% url 'recette' result.id %}">{{ result.titre }}</a></td>
+                    <td>{{ result.type }}</td>
+                    <td>{{ result.real_date }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if recettes.has_previous %}
+                    <a href="?type={{ typeObjet.id }}&page={{ recettes.previous_page_number }}">Résultats précédent</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ recettes.number }} de {{ recettes.paginator.num_pages }}
+                </span>
+
+                {% if recettes.has_next %}
+                    <a href="?type={{ typeObjet.id }}&page={{ recettes.next_page_number }}">Résultats suivant</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    {% else %}
+        <h2>Aucune recette</h2>
+    {% endif %}
+{% endblock %}

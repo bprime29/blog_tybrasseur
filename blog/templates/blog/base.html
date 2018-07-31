@@ -1,13 +1,14 @@
 {% load static %}
 <html>
     <head>
-        <title>Django Girls blog</title>
+        <title>Ty Brasseur</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        <link rel="stylesheet" href="{% static 'css/timeline_recette.css' %}">
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -27,7 +28,7 @@
                         <li class="dropdown">
                             <a data-toggle="dropdown" href="#">Brassage<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="">Mes recettes</a></li>
+                                <li><a href="{% url 'allrecettes' %}">Mes recettes</a></li>
                                 <li><a href="">Le matériel</a></li>
                                 <li><a href="">Le brassage</a></li>
                             </ul>
@@ -49,8 +50,9 @@
                                 <a data-toggle="dropdown" href="#">Bienvenue {{ user.username }} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                         <li><a href="{% url 'post_new' %}">Nouveau post</a></li>
-                                        <li><a href="{% url 'post_draft_list' %}">A publier</a></li>
-                                        <li><a href="">Gérer mon compte</a></li>
+                                        <li><a href="{% url 'post_draft_list' %}">Post à publier</a></li>
+                                        <li><a href="">Nouvelle recette</a></li>
+                                        <!--<li><a href="">Gérer mon compte</a></li>-->
                                         <li><a href="{% url 'logout' %}">Déconnecter</a></li>
                                 </ul>
                             {% else %}
