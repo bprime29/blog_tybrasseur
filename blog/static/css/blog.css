@@ -62,3 +62,12 @@ h1, h2, h3, h4 {
 .sidebar-fixed {
 	width:14%;
 }
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}

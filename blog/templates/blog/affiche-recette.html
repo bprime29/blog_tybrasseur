@@ -16,63 +16,27 @@
         <h1> {{ recette.titre }} </h1>
         <p class="lead"> {{ recette.description }} </p>
     </div>
-
+    </section>
     <section class="row">
-       <div class="col-lg-10 col-lg-offset-1">
-            <div class="col-sm-5">
-                <div class="card-bax">
-                    <h4>Information</h4>
-                    <p>Type: {{ recette.type }}</p>
-                    <p>Date: {{ recette.real_date }}</p>
-                </div>
-
-            </div>
-            <div class="col-sm-5">
-                <div id="aniimated-thumbnials" class="zoom">
-                    {% for photo in photos %}
-                        <a class="col-xs-4 col-sm-3 col-md-4 image" href="{{ photo.image.url }}">
+        <div id="aniimated-thumbnials" class="zoom">
+            {% for photo in photos %}
+                        <a class="col-xs-4 col-sm-3 col-md-2 image" href="{{ photo.image.url }}">
                             <img class="img-responsive" src="{{ photo.thumbnail.url }}">
                         </a>
                     {% endfor %}
-                </div>
-            </div>
-       </div>
+        </div>
     </section>
-
     <script type="text/javascript">
         lightGallery(document.getElementById('aniimated-thumbnials'), {
             thumbnail:true
         });
     </script>
-<!--<div class="col-lg-10 col-lg-offset-1">-->
-    <!--<div class="card-box">-->
-        <!--<div class="row">-->
-            <!--<div class="col-lg-10">-->
-                <!--<div class="row">-->
-                    <!--<div class="col-xs-5 text-center">-->
-                        <!--toto-->
-                    <!--</div>-->
-                    <!--<div class="col-xs-5 col-xs-divider-left">-->
-                        <!--<div id="aniimated-thumbnials" class="zoom">-->
-                    <!--{% for photo in photos %}-->
-                        <!--<a class="col-xs-4 col-sm-3 col-md-4 image" href="{{ photo.image.url }}">-->
-                            <!--<img class="img-responsive" src="{{ photo.thumbnail.url }}">-->
-                        <!--</a>-->
-                    <!--{% endfor %}-->
-                <!--</div>-->
-
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
 
     <div class="col-lg-10 col-lg-offset-1">
         <table class="table table-borderless table-condensed table-hover">
-            <caption>
+            <!--caption-->
                 <h4>Information</h4>
-            </caption>
+            <!--/caption-->
             <tbody>
             <tr>
                 <td>Type: {{ recette.type }}</td>
@@ -89,9 +53,9 @@
 
     <div class="col-lg-10 col-lg-offset-1">
         <table class="table table-hover table-striped table-condensed">
-            <caption>
+            <!--caption-->
                 <h4>Ingrédients</h4>
-            </caption>
+            <!--/caption-->
             <thead>
             <tr>
                 <th>Quantité</th>
@@ -192,34 +156,6 @@
                 </table>
             </div>
         </div>
-    </div>
-
-    <div class="col-lg-10 col-lg-offset-1">
-        <h3> Commentaires :</h3>
-        <div class="commentaire">
-            <ul>
-                {% for com in commentaires %}
-                    <li>
-                        <span>{{ com.user }} le {{ com.created_at }}</span>
-                        <div>{{ com.message }}</div>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% if user.is_authenticated %}
-            {% if form_com %}
-                <h4>Ajouter un commentaire</h4>
-                <form action="{% url 'blog:recette' recette.id %}" method="post">
-                {{ form_com }}
-                {% csrf_token %}
-                 <input type="submit" class="btn btn-primary" value="Commenter">
-                </form>
-            {% else %}
-                Vous avez déjà voté !
-            {% endif %}
-        {% else %}
-            <a href="{% url 'login' %}">Connectez-vous pour laisser un commentaire à cette recette de malade !</a>
-        {% endif %}
     </div>
 </div>
 {% endblock %}
