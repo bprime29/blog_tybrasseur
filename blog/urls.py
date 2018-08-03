@@ -13,4 +13,6 @@ urlpatterns = [
     # Recettes
     url(r'^allrecettes', views.allrecettes, name="allrecettes"),
     url(r'^recette/(?P<id>\d+)/', views.recette, name="recette"),
+    # Outils
+    url(r'^calc_with_densimetre', views.calc_with_densimetre, name='calc_with_densimetre')
 ]

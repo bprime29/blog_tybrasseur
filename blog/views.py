@@ -144,3 +144,6 @@ def nouvelleRecette(request):
         'EtapeForm': EtapeForm,
         'ImageForm':ImageForm,
     })
+
+def calc_with_densimetre(request):
+    return render(request, 'blog/calc_with_densimetre.html')
