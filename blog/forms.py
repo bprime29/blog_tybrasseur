@@ -17,6 +17,12 @@ class RecetteForm(forms.ModelForm):
         fields = '__all__'
 
 
+class calc_dens(forms.Form):
+    di = forms.CharField(max_length=10)
+    df = forms.CharField(max_length=10)
+    sucre = forms.CharField(max_length=10)
+
+
 class EtapeCustomForm(forms.ModelForm):
     required_css_class = 'required'
     detail = forms.CharField(required=True, widget=forms.Textarea(attrs={'cols': 40, 'rows': 2}))
