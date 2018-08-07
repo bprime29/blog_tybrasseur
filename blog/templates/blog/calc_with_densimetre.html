@@ -5,53 +5,42 @@
 
 <script href="{% static 'js/fonction.js' %}"></script>
 
-    <form class="form-horizontal col-lg-6 col-lg-offset-2" action="/calc_with_densimetre/" method="post" name="calculalc" id="calculalc">{% csrf_token %}
-        <div class="form-group">
-            <legend align="center">Taux d'alcool de la bière</legend>
-        </div>
-        <div class="row">
-            <div class="form-group">
-                <label for="textarea" class="col-lg-8 control-label">Saisir la densité initiale : </label>
-                <div class="col-lg-5">
-                    <input type="text" name="di" class="form-control" value="{{ di }}">
-                </div>
+    <div class="starter-template">
+        <h1 class="titre text-center">Calcul avec densimètre</h1>
+    </div>
+
+    <form action="/calc_with_densimetre/" method="post" name="calculalc" id="calculalc">{% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="inputdi">Saisir la densité initiale :</label>
+                <input type="text" name="di" class="form-control col-lg-3" id="inputdi" value="{{ di }}">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputdf">Saisir la densité finale :</label>
+                <input type="text" name="df" class="form-control col-lg-3" id="inputdf" value="{{ df }}">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="sucre">Sucre ajouté à l'embouteillage : (en g/l) </label>
+                <input type="text" name="sucre" class="form-control col-lg-3" id="sucre" value="{{ sucre }}">
             </div>
         </div>
-        <div class="row">
-            <div class="form-group">
-                <label for="textarea" class="col-lg-8 control-label">Saisir la densité finale : </label>
-                <div class="col-lg-5">
-                    <input type="text" name="df" class="form-control" value="{{ df }}">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group">
-                <label for="textarea" class="col-lg-8 control-label">Sucre ajouté à l'embouteillage : (en g/l) </label>
-                <div class="col-lg-5">
-                    <input type="text" name="sucre" class="form-control" value="7">
-                </div>
-            </div>
-        </div>
+
         <div class="form-group">
             <input type="submit" class="center-block btn btn-primary" name="calculer" value="Calculer"/>
         </div>
-        <div class="row">
-            <div class="form-group">
-                <label for="textarea" class="col-lg-8 control-label">Le taux avant fermentation en bouteille est de : </label>
-                <div class="col-lg-5">
-                    <input type="textarea" name="test" class="form-control" id="textarea" readonly value="{{ dens1 }}">
-                </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="outputti">Le taux avant fermentation en bouteille est de : </label>
+                <input type="textarea" name="ti" class="form-control col-lg-3" id="outputti" readonly value="{{ dens1 }}">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="outputtf">Le taux après fermentation en bouteille est de : </label>
+                <input type="textarea" name="tf" class="form-control col-lg-3" id="outputtf" readonly value="{{ ref_tot1 }}">
             </div>
         </div>
-        <div class="row">
-            <div class="form-group">
-                <label for="textarea" class="col-lg-8 control-label">Le taux après fermentation en bouteille est de : </label>
-                <div class="col-lg-5">
-                    <input type="textarea" name="ref_tot" class="form-control" id="textarea" readonly value="{{ ref_tot1 }}">
-                </div>
-            </div>
-        </div>
+
+
     </form>
 
 {% endblock %}

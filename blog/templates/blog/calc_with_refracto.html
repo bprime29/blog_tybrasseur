@@ -1,0 +1,102 @@
+{% extends 'blog/base.html' %}
+{% block titre %}Calcul avec réfractomètre{% endblock %}
+{% block content %}
+
+
+    <div class="starter-template">
+        <h1 class="titre text-center">Calcul du taux d'alcool avec réfractomètre</h1>
+    </div>
+    <div class="row">
+        <div class="col-lg-6" align="center"><img src="/static/images/vertex-refractometre-rf-1.jpg" alt="réfractomètre"></div>
+        <div class="col-lg-6" align="center"><img src="/static/images/refractometre3.jpg" alt="Vue dans réfractomètre"></div>
+    </div>
+
+<div class="row">
+    <form class="form-horizontal col-md-6" action="/calc_with_refracto/" method="post" name="densite_brix" id="densite_brix">{% csrf_token %}
+        <div class="form-group">
+            <legend>Conversion de la densité avant fermentation</legend>
+        </div>
+        <div class="form-group row">
+                <label for="inputdi" class="col-md-6">Saisir la densité en degrés Brix :</label>
+                <input type="text" name="densB" class="form-control col-md-3" id="densB" value="1050">
+        </div>
+        <div class="form-group row">
+                <label for="textarea" class="col-md-6">La densité spécifique est de : </label>
+                <input type="textarea" name="densS" class="form-control col-md-3" id="densS" readonly value="{{ densS }}">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="center-block btn btn-primary" name="calculer" value="Calculer"/>
+        </div>
+    </form>
+
+    <form class="form-horizontal col-md-6" action="/calc_with_densimetre/" method="post" name="densite_brix_ferm" id="densite_brix_ferm">{% csrf_token %}
+        <div class="form-group row">
+            <legend>Conversion de la densité après fermentation</legend>
+        </div>
+        <div class="form-group row">
+            <label for="textarea" class="col-lg-6 control-label">Saisir la DI en degrés Brix avant la fermentation : </label>
+            <div class="col-lg-3">
+                <input type="text" name="densBO" value="12" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="textarea" class="col-lg-6 control-label">Saisir la densité en degrés Brix après fermentation : </label>
+            <div class="col-lg-3">
+                <input type="text" name="densBC" value="6" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="textarea" class="col-lg-6 control-label">La densité spécifique est de : </label>
+            <div class="col-lg-3">
+                <input type="textarea" name="densS" class="form-control" id="textarea" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="center-block btn btn-primary" name="calculer" value="Calculer"/>
+        </div>
+    </form>
+</div>
+
+
+<div class="row">
+    <form action="refractometre.php" name="calculalc" id="calculalc">{% csrf_token %}
+        <div class="form-row">
+            <legend align="center">Taux d'alcool de la bière</legend>
+
+            <div class="form-group col-md-4">
+                <label for="textarea">Saisir la densité initiale : </label>
+                <div class="col-lg-4">
+                    <input type="text" name="og" class="form-control" value="1068">
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="textarea">Saisir la densité finale : </label>
+                <div class="col-lg-4">
+                    <input type="text" name="fg" class="form-control" value="1015">
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="textarea">Sucre ajouté à l'embouteillage : (en g/l) </label>
+                <div class="col-lg-4">
+                    <input type="text" name="sucre" class="form-control" value="7">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="button" class="center-block btn btn-primary" name="calculer" value="Calculer" onclick="calcalc(og.value, fg.value, sucre.value)" />
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="outputti">Le taux avant fermentation en bouteille est de : </label>
+                <input type="textarea" name="dens" class="form-control col-lg-3" id="outputti" readonly value="{{ dens1 }}">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="outputtf">Le taux après fermentation en bouteille est de : </label>
+                <input type="textarea" name="ref_tot" class="form-control col-lg-3" id="outputtf" readonly value="{{ ref_tot1 }}">
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

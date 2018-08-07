@@ -123,7 +123,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/medias/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'medias')
-print(MEDIA_URL)
 
 ALLOWED_HOSTS = ['127.0.0.1', 'tybrasseur.fr']
 
