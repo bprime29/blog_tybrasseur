@@ -2,40 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-# POST
-
-class Post(models.Model):
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    desc = models.TextField()
-    text = models.TextField()
-    created_date = models.DateTimeField(
-            default=timezone.now)
-    published_date = models.DateTimeField(
-            blank=True, null=True)
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
-
-    def __str__(self):
-        return self.title
-
-class Comment(models.Model):
-    post = models.ForeignKey('blog.Post', on_delete=models.CASCADE, related_name='comments')
-    author = models.CharField(max_length=200)
-    text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
-    approved_comment = models.BooleanField(default=False)
-
-    def approve(self):
-        self.approved_comment = True
-        self.save()
-
-    def __str__(self):
-        return self.text
-
-# RECETTES
 
 class Recette(models.Model):
     user = models.ForeignKey(User, default=1, editable=False)
@@ -100,7 +66,7 @@ class Photo(models.Model):
         # Save image to a SimpleUploadedFile which can be saved into
         # ImageField
         suf = SimpleUploadedFile(os.path.split(self.image.name)[-1],
-                temp_handle.read(), content_type=DJANGO_TYPE)
+                                 temp_handle.read(), content_type=DJANGO_TYPE)
         # Save SimpleUploadedFile into image field
         self.thumbnail.save(
             '%s_thumbnail.%s' % (os.path.splitext(suf.name)[0], FILE_EXTENSION),
@@ -123,9 +89,8 @@ class Photo(models.Model):
         super(Photo, self).save(force_update=force_update)
 
 
-
 class Ingredient(models.Model):
-    recette = models.ForeignKey('Recette', null=True,editable=False)
+    recette = models.ForeignKey('Recette', null=True, editable=False)
     nom = models.CharField(max_length=100)
     quantite = models.CharField(max_length=100)
     typ = models.CharField(max_length=100)
@@ -145,11 +110,12 @@ class Empatage(models.Model):
 
 class Etape_empatage(models.Model):
     title_empatage = models.CharField(max_length=256)
-    label_empatage = models.CharField(max_length=100,default='Label')
+    label_empatage = models.CharField(max_length=100, default='Label')
     detail_empatage = models.TextField()
 
     def __str__(self):
         return self.title_empatage
+
 
 class Ebullition(models.Model):
     recette = models.ForeignKey('Recette', null=True, editable=False)
@@ -159,11 +125,12 @@ class Ebullition(models.Model):
 
 class Etape_ebullition(models.Model):
     title_ebullition = models.CharField(max_length=256)
-    label_ebullition = models.CharField(max_length=100,default='Label')
+    label_ebullition = models.CharField(max_length=100, default='Label')
     detail_ebullition = models.TextField()
 
     def __str__(self):
         return self.title_ebullition
+
 
 class Fermentation(models.Model):
     recette = models.ForeignKey('Recette', null=True, editable=False)
@@ -173,15 +140,16 @@ class Fermentation(models.Model):
 
 class Etape_fermentation(models.Model):
     title_fermentation = models.CharField(max_length=256)
-    label_fermentation = models.CharField(max_length=100,default='Label')
+    label_fermentation = models.CharField(max_length=100, default='Label')
     detail_fermentation = models.TextField()
 
     def __str__(self):
         return self.title_fermentation
 
+
 class Methode(models.Model):
     title = models.CharField(max_length=256)
-    label = models.CharField(max_length=100,default='Label')
+    label = models.CharField(max_length=100, default='Label')
     detail = models.TextField()
 
     def __str__(self):

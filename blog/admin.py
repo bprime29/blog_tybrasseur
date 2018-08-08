@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Post, Comment, Recette, Ingredient, Etape, \
+from blog.models.post import Post, Comment
+from blog.models.recettes import Recette, Ingredient, Etape, \
     Ebullition, Etape_ebullition, \
     Fermentation, Etape_fermentation, \
     Empatage, Etape_empatage, \
