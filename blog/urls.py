@@ -2,6 +2,7 @@ from django.conf.urls import url
 from blog.views.post import *
 from blog.views.outils import *
 from blog.views.recettes import *
+from blog.views.contact import *
 
 
 urlpatterns = [
@@ -19,4 +20,7 @@ urlpatterns = [
     # Outils
     url(r'^calc_with_densimetre', calc_with_densimetre, name='calc_with_densimetre'),
     url(r'^calc_with_refracto', calc_with_refracto, name='calc_with_refracto'),
+    # Contact
+    url(r'^email', emailView, name='email'),
+    url(r'^success', successView, name='success'),
 ]
